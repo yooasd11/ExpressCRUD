@@ -13,7 +13,7 @@ exports.users = function(callback) {
 }
 
 exports.insertUser = function(body, callback) {
-  connection.query(`INSERT INTO user (name, email, password) VALUES ("${body.name}", "${body.email}", "${body.password}");`, callback);
+  connection.query(`INSERT INTO user (id, email, password) VALUES ("${body.id}", "${body.email}", "${body.password}");`, callback);
 }
 
 exports.deleteUser = function(id, callback) {
@@ -21,5 +21,5 @@ exports.deleteUser = function(id, callback) {
 }
 
 exports.updateUser = function(body, callback) {
-  connection.query(`UPDATE user SET name = "${body.name}", email = "${body.email}", password = "${body.password}" WHERE id = ${body.id};`, callback);
+  connection.query(`UPDATE user SET id = "${body.id}", email = "${body.email}", password = "${body.password}" WHERE id = ${body.id};`, callback);
 }

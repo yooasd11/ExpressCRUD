@@ -11,11 +11,10 @@ class App extends Component {
     this.state = {
       users: [],
       input: {
-        name: "",
+        id: "",
         email: "",
         password: "",
-      }
-
+      },
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInput = this.handleInput.bind(this);
@@ -27,6 +26,7 @@ class App extends Component {
   }
 
   fetchUsers() {
+    console.log("fetching");
     axios.get(this.USERS_URL)
       .then((res) => {
         console.log(res.data);
@@ -37,7 +37,7 @@ class App extends Component {
 
   handleSubmit() {
     axios.put(this.USERS_URL, this.state.input)
-      .then(res => this.fetchUsers())     //currently not working
+      .then(res => console.log(res))
       .catch(() => console.log("error while submit"));
   }
 
@@ -58,11 +58,11 @@ class App extends Component {
       <div>
         <ul>
           List of users
-          {this.state.users.map(user => <li key={user.id}>{user.id}, {user.name}, {user.email}</li>)}
+          {this.state.users.map(user => <li key={user.uid}>{user.id}, {user.email}</li>)}
         </ul>
         <form>
           <h2>Join us!</h2>
-          Name : <input type="text" name="name" onChange={this.handleInput}></input>
+          ID : <input type="text" name="id" onChange={this.handleInput}></input>
           E-mail : <input type="email" name="email" onChange={this.handleInput}></input>
           Password : <input type="password" name="password" onChange={this.handleInput}></input>
         </form>
