@@ -1,5 +1,6 @@
 var express = require('express');
 var session = require('express-session');
+var cors = require('cors'); // CORS proxy
 //var helmet = require('helmet');
 var bodyParser = require('body-parser');
 var usersRouter = require('./router/users');
@@ -7,15 +8,15 @@ var app = express();
 
 app.set('port', process.env.PORT || 3000);
 
+app.use(cors());
 app.use(session({
-  // store : 영속 관리를 위해 redis 등으로 설정해줘야함 (디폴트로 서버 앱 인메모리에 저장)
+  // TODO : store - 영속 관리를 위해 redis 등으로 설정해줘야함 (디폴트로 서버 앱 인메모리에 저장)
   secret: 'SOME_SECRET_KEY',
   name: "sessionId",    // 디폴트는 "sid", 디폴트 그대로 사용하면 공격에 노출될 수 있음
   resave: false,
   saveUninitialized: true,
   cookie: { path: '/', maxAge: 60 * 60 * 1000 },
 }));
-
 //app.use(helmet()); // TODO : 보안 http://expressjs.com/ko/advanced/best-practice-security.html
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
