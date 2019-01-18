@@ -15,7 +15,6 @@ router.put('/', function(req, res) {
     db.insertUser(user, function(err, rows) {
         if (err) throw err;
         console.log('Inserts user : ', user);
-        res.redirect('/users');
     });
 });
 
@@ -23,7 +22,6 @@ router.delete('/:id', function(req, res) {
     db.deleteUser(req.params.id, function(err, rows) {
         if (err) throw err;
         console.log('Delete person id : ', req.params.id);
-        res.redirect('/users');
     });
 })
 
@@ -32,7 +30,6 @@ router.post('/', function(req, res) {
     db.updatePerson(person, function(err, rows) {
         if (err) throw err;
         console.log('Update person : ', user);
-        res.redirect('/users');
     });
 });
 

@@ -19,15 +19,38 @@ class App extends Component {
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInput = this.handleInput.bind(this);
+    this.fetchUsers = this.fetchUsers.bind(this);
   }
 
   componentDidMount() {
+      this.fetchUsers();
+  }
+
+  fetchUsers() {
     axios.get(this.USERS_URL)
       .then((res) => {
         console.log(res.data);
         this.setState({ users: res.data });
       })
       .catch(() => console.log("error while fetching data"));
+  }
+
+  handleSubmit() {
+    axios.put(this.USERS_URL, this.state.input)
+      .then(res => this.fetchUsers())     //currently not working
+      .catch(() => console.log("error while submit"));
+  }
+
+  handleInput(event) {
+    const name = event.target.name;
+    const value = event.target.value;
+    this.setState(prev => ({
+      ...prev,
+      input : {
+        ...prev.input,
+        [name]: value,
+      }
+    }));
   }
 
   render() {
@@ -48,23 +71,6 @@ class App extends Component {
     );
   }
 
-  handleSubmit() {
-    axios.put(this.USERS_URL, this.state.input)
-      .then(res => console.log(res))
-      .catch(() => console.log("error while submit"));
-  }
-
-  handleInput(event) {
-    const name = event.target.name;
-    const value = event.target.value;
-    this.setState(prev => ({
-      ...prev,
-      input : {
-        ...prev.input,
-        [name]: value,
-      }
-    }));
-  }
 }
 
 export default App;
