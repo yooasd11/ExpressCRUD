@@ -1,6 +1,8 @@
 var express = require('express');
 var db = require('../../config/db');
+var APIError = require('../../utils/APIError');
 var router = express.Router();
+var httpStatus = require('http-status');
 
 router.get('/', function(req, res){
     db.users(function(err, rows) {
@@ -9,12 +11,15 @@ router.get('/', function(req, res){
     });
 });
 
-router.put('/', function(req, res) {
+router.put('/', function(req, res, next) {
     const user = JSON.parse(JSON.stringify(req.body));
     db.insertUser(user, function(err, rows) {
         if (err) {
-            console.log("error while insert : ", err);
-            res.send(res);
+            next(new APIError({
+                ...err,
+                message: "Already exists!",
+                status: httpStatus.INTERNAL_SERVER_ERROR,
+            }));
             return;
         }
         console.log('Inserts user : ', user);

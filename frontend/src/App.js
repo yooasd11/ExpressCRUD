@@ -29,17 +29,16 @@ class App extends Component {
     console.log("fetching");
     axios.get(this.USERS_URL)
       .then((res) => {
-        console.log(res.data);
         this.setState({ users: res.data });
       })
-      .catch(() => console.log("error while fetching data"));
+      .catch(err => console.log("error while fetching data : ", err));
   }
 
   handleSubmit() {
     axios.put(this.USERS_URL, this.state.input)
       .then(res => console.log(res))
-      .catch(res => {
-        console.log("error while submit : ", res);
+      .catch(err => {
+        console.log("error while submit : ", err);
       });
   }
 
