@@ -59,3 +59,7 @@ typings/
 
 # next.js build output
 .next
+
+# Environment settings
+./backend/.env.dev
+./backend/.env.prod
