@@ -16,7 +16,7 @@ const handler = (err, req, res, next) => {
         delete response.stack;
     }
 
-    console.log(response);
+    console.log('handling error : \n', response);
 
     if (err.status) {
         res.status(err.status);
