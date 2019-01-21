@@ -4,7 +4,7 @@ import './global.css';
 import './App.css';
 
 class App extends Component {
-  USERS_URL = "http://localhost:3000/users";
+  USERS_URL = "http://localhost:3000/v1/users";
 
   constructor() {
     super();
@@ -38,7 +38,9 @@ class App extends Component {
   handleSubmit() {
     axios.put(this.USERS_URL, this.state.input)
       .then(res => console.log(res))
-      .catch(() => console.log("error while submit"));
+      .catch(res => {
+        console.log("error while submit : ", res);
+      });
   }
 
   handleInput(event) {
@@ -58,7 +60,7 @@ class App extends Component {
       <div>
         <ul>
           List of users
-          {this.state.users.map(user => <li key={user.uid}>{user.id}, {user.email}</li>)}
+          {this.state.users.map(user => <li key={user.uid}>{user.uid} / {user.id} / {user.email}</li>)}
         </ul>
         <form>
           <h2>Join us!</h2>

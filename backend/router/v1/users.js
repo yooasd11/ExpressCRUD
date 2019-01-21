@@ -1,11 +1,10 @@
 var express = require('express');
-var db = require('../db');
+var db = require('../../config/db');
 var router = express.Router();
 
 router.get('/', function(req, res){
     db.users(function(err, rows) {
         if (err) throw err;
-        console.log('The solution is: ', rows);
         res.send(rows);
     });
 });
@@ -13,12 +12,16 @@ router.get('/', function(req, res){
 router.put('/', function(req, res) {
     const user = JSON.parse(JSON.stringify(req.body));
     db.insertUser(user, function(err, rows) {
-        if (err) throw err;
+        if (err) {
+            console.log("error while insert : ", err);
+            res.send(res);
+            return;
+        }
         console.log('Inserts user : ', user);
     });
 });
 
-router.delete('/:id', function(req, res) {
+router.delete('/:d', function(req, res) {
     db.deleteUser(req.params.id, function(err, rows) {
         if (err) throw err;
         console.log('Delete person id : ', req.params.id);
