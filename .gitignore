@@ -61,5 +61,5 @@ typings/
 .next
 
 # Environment settings
-./backend/.env.dev
-./backend/.env.prod
+backend/.env.dev
+backend/.env.prod
