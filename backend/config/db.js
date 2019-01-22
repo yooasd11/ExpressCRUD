@@ -12,14 +12,18 @@ exports.users = function(callback) {
   connection.query('SELECT * from user', callback);
 }
 
-exports.insertUser = function(body, callback) {
-  connection.query(`INSERT INTO user (id, email, password) VALUES ("${body.id}", "${body.email}", "${body.password}");`, callback);
+exports.insertUser = function(user, callback) {
+  connection.query(`INSERT INTO user (id, email, password) VALUES ("${user.id}", "${user.email}", "${user.password}");`, callback);
 }
 
 exports.deleteUser = function(id, callback) {
   connection.query(`DELETE FROM user WHERE id = ${id};`, callback);
 }
 
-exports.updateUser = function(body, callback) {
-  connection.query(`UPDATE user SET id = "${body.id}", email = "${body.email}", password = "${body.password}" WHERE id = ${body.id};`, callback);
+exports.updateUser = function(user, callback) {
+  connection.query(`UPDATE user SET id = "${user.id}", email = "${user.email}", password = "${user.password}" WHERE id = ${user.id};`, callback);
+}
+
+exports.selectUser = function(user, callback) {
+  connection.query(`SELECT * FROM user WHERE id = "${user.id}" AND password = "${user.password}"`, callback);
 }

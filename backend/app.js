@@ -15,30 +15,16 @@ app.use(cors());
 app.use(session({
   // TODO : store - 영속 관리를 위해 redis 등으로 설정해줘야함 (디폴트로 서버 앱 인메모리에 저장)
   secret: 'SOME_SECRET_KEY',
-  name: "sessionId",    // 디폴트는 "sid", 디폴트 그대로 사용하면 공격에 노출될 수 있음
+  name: "randomsessionname",    // 디폴트는 "sid", 디폴트 그대로 사용하면 공격에 노출될 수 있음
   resave: false,
   saveUninitialized: true,
-  cookie: { path: '/', maxAge: 60 * 60 * 1000 },
+  cookie: { maxAge: 60 * 60 * 1000 },
 }));
 app.use(helmet()); // 보안 http://expressjs.com/ko/advanced/best-practice-security.html
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use('/v1', v1Routes);
-
-// for session test
-app.get('/', function(req, res){
-  console.log(req.session.counter);
-  let session = req.session;
-  if (session && session.counter >= 0) {
-    session.counter++;
-    res.send(`Counter : ${session.counter}`);
-  } else {
-    // session 데이터 발급
-    req.session.counter = 0;
-    res.send('No session!!');
-  }
-});
 
 app.use(error.handler);
 app.use(error.notFound);
