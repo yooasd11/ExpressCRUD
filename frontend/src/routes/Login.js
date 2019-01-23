@@ -31,7 +31,7 @@ class Login extends React.Component {
     }
 
     handleSubmit() {
-        axios.post(LOGIN_URL, this.state.input)
+        axios.post(LOGIN_URL, this.state.input, { withCredentials: true })
             .then(res => {
                 console.log('login result : ', res.data);
                 this.setState({

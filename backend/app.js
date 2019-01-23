@@ -11,7 +11,10 @@ var { port, env, logs } = require('./config/vars');
 var app = express();
 
 app.use(morgan(logs));   // logger
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:8000",
+  credentials: true,
+}));
 app.use(session({
   // TODO : store - 영속 관리를 위해 redis 등으로 설정해줘야함 (디폴트로 서버 앱 인메모리에 저장)
   secret: 'SOME_SECRET_KEY',
