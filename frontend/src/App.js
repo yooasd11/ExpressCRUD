@@ -53,9 +53,12 @@ class App extends Component {
                 <li>
                   <Link to="/list">List</Link>
                 </li>
-                <li>
-                  <Link to="/join">Join</Link>
-                </li>
+                {
+                  this.state.auth ? "" :
+                    <li>
+                      <Link to="/join">Join</Link>
+                    </li>
+                }
                 <li>
                   {this.state.auth ? <Link to="/mypage">My Page</Link> : <Link to="/login">Login</Link>}
                 </li>

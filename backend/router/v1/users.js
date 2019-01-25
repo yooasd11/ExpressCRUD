@@ -26,7 +26,7 @@ router.put('/', function(req, res, next) {
     });
 });
 
-router.delete('/:d', function(req, res) {
+router.delete('/:id', function(req, res) {
     db.deleteUser(req.params.id, function(err, rows) {
         if (err) throw err;
         console.log('Delete person id : ', req.params.id);
