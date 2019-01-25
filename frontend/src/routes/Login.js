@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { LOGIN_URL } from '../api/config';
+import { AUTH_URL } from '../api/config';
 import './Login.scss';
 
 class Login extends React.Component {
@@ -31,7 +31,7 @@ class Login extends React.Component {
     }
 
     handleSubmit() {
-        axios.post(LOGIN_URL, this.state.input, { withCredentials: true })
+        axios.post(AUTH_URL + '/login', this.state.input, { withCredentials: true })
             .then(res => {
                 console.log('login result : ', res.data);
                 this.setState({

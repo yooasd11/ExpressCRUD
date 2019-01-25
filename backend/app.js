@@ -18,7 +18,7 @@ app.use(cors({
 app.use(session({
   // TODO : store - 영속 관리를 위해 redis 등으로 설정해줘야함 (디폴트로 서버 앱 인메모리에 저장)
   secret: 'SOME_SECRET_KEY',
-  name: "randomsessionname",    // 디폴트는 "sid", 디폴트 그대로 사용하면 공격에 노출될 수 있음
+  name: "CASID",    // 디폴트는 "sid", 디폴트 그대로 사용하면 공격에 노출될 수 있음
   resave: false,
   saveUninitialized: true,
   cookie: { maxAge: 60 * 60 * 1000 },
