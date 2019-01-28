@@ -1,4 +1,5 @@
-import { combineReducers, createStore } from 'redux';
+import { combineReducers, createStore, applyMiddleware} from 'redux';
+import reduxLogger from 'redux-logger';
 
 import auth from './reducer/auth.reducer';
 
@@ -8,4 +9,5 @@ const rootReducer = combineReducers({
 
 export default createStore(
   rootReducer,
+  applyMiddleware(reduxLogger),
 );
