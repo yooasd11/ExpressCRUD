@@ -19,10 +19,9 @@ const mapDispatchToProps = {
 };
 
 class App extends Component {
+
 	componentDidMount() {
-		// action dispatch
-    this.props.checkAuth();
-    console.log('props : ', this.props);
+		this.props.checkAuth();
 	}
 
 	render() {
@@ -30,7 +29,7 @@ class App extends Component {
 			<div className="app-wrapper">
 				<Router>
 					<div>
-						Auth : {this.props.auth} , UserId : {this.props.userId}
+						Auth : {String(this.props.auth)} , UserId : {this.props.userId}
 						<nav>
 							<ul className="links">
 								<li>
@@ -39,16 +38,16 @@ class App extends Component {
 								{this.props.auth ? (
 									''
 								) : (
-									<li>
-										<Link to="/join">Join</Link>
-									</li>
-								)}
+										<li>
+											<Link to="/join">Join</Link>
+										</li>
+									)}
 								<li>
 									{this.props.auth ? (
 										<Link to="/mypage">My Page</Link>
 									) : (
-										<Link to="/login">Login</Link>
-									)}
+											<Link to="/login">Login</Link>
+										)}
 								</li>
 							</ul>
 						</nav>
@@ -58,6 +57,7 @@ class App extends Component {
 							<Route path="/join" component={Join} />
 							<Route path="/login" component={Login} />
 							<Route path="/mypage" render={() => <MyPage id={this.props.userId} />} />
+							{ this.props.auth ? <Redirect from="/login" to="/mypage" /> : <Redirect from="/mypage" to="/login" />}
 						</Switch>
 					</div>
 				</Router>

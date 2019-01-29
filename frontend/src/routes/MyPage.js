@@ -1,8 +1,11 @@
 import React from 'react';
-import axios from 'axios';
-import { AUTH_URL } from '../api/config';
+import { connect } from 'react-redux';
+import authActions from '../redux/actions/AuthAction';
 import './MyPage.scss';
 
+const mapDispatchToProps = {
+	logout: authActions.logout
+};
 
 class MyPage extends React.Component {
     constructor(props) {
@@ -11,22 +14,7 @@ class MyPage extends React.Component {
     }
 
     handleLogout() {
-        axios.get(AUTH_URL + '/logout', { withCredentials: true })
-            .then(res => {
-                if (res.data.success) {
-                    alert('Logout successful!');
-                }
-            })
-            .catch(err => {
-                if (err.response) {
-                    console.log("error response : ", err.response);
-                } else if (err.request) {
-                    console.log("error request : ", err.request);
-                } else {
-                    console.log("error message : ", err.message);
-                }
-                console.log("error config : ", err.config);
-            });
+        this.props.logout();
     }
 
     render() {
@@ -42,5 +30,4 @@ class MyPage extends React.Component {
     }
 }
 
-
-export default MyPage;
+export default connect(null, mapDispatchToProps)(MyPage);

@@ -1,7 +1,11 @@
 import React from 'react';
-import axios from 'axios';
-import { AUTH_URL } from '../api/config';
+import { connect } from 'react-redux';
+import authActions from '../redux/actions/AuthAction';
 import './Login.scss';
+
+const mapDispatchToProps = {
+	login: authActions.login
+};
 
 class Login extends React.Component {
     constructor() {
@@ -31,26 +35,7 @@ class Login extends React.Component {
     }
 
     handleSubmit() {
-        axios.post(AUTH_URL + '/login', this.state.input, { withCredentials: true })
-            .then(res => {
-                console.log('login result : ', res.data);
-                this.setState({
-                    status: String(res.data),
-                });
-            })
-            .catch(err => {
-                if (err.response) {
-                    console.log("error response : ", err.response);
-                } else if (err.request) {
-                    console.log("error request : ", err.request);
-                } else {
-                    console.log("error message : ", err.message);
-                }
-                console.log("error config : ", err.config);
-                this.setState({
-                    status: "Login failed!",
-                });
-            });
+        this.props.login(this.state.input);
     }
 
     render() {
@@ -70,4 +55,4 @@ class Login extends React.Component {
     }
 }
 
-export default Login;
+export default connect(null, mapDispatchToProps)(Login);
