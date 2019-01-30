@@ -22,6 +22,7 @@ router.put('/', function(req, res, next) {
             }));
             return;
         }
+        res.end();
         console.log('Inserts user : ', user);
     });
 });

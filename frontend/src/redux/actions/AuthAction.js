@@ -3,6 +3,7 @@ import AT from './ActionTypes';
 
 export default {
   auth: actionCreator(AT.AUTH),
-  login: actionCreator(AT.LOGIN),
-  logout: actionCreator(AT.LOGOUT),
+  logIn: actionCreator(AT.LOGIN),
+  logOut: actionCreator(AT.LOGOUT),
+  join: actionCreator(AT.JOIN),
 };

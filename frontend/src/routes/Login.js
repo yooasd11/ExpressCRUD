@@ -4,7 +4,7 @@ import authActions from '../redux/actions/AuthAction';
 import './Login.scss';
 
 const mapDispatchToProps = {
-	login: authActions.login
+	logIn: authActions.logIn
 };
 
 class Login extends React.Component {
@@ -35,7 +35,7 @@ class Login extends React.Component {
     }
 
     handleSubmit() {
-        this.props.login(this.state.input);
+        this.props.logIn(this.state.input);
     }
 
     render() {

@@ -1,8 +1,15 @@
 import React from 'react';
-import axios from 'axios';
-
-import { USERS_URL } from '../api/config';
+import { connect } from 'react-redux';
+import authActions from '../redux/actions/AuthAction';
 import './Join.scss';
+
+const mapStateToProps = state => ({
+    error: state.auth.error,
+});
+
+const mapDispatchToProps = {
+	join: authActions.join
+};
 
 class Join extends React.Component {
     constructor() {
@@ -13,7 +20,6 @@ class Join extends React.Component {
                 email: "",
                 password: "",
             },
-            error: "",
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,22 +27,7 @@ class Join extends React.Component {
     }
 
     handleSubmit() {
-        axios.put(USERS_URL, this.state.input)
-            .then(res => console.log(res))
-            .catch(err => {
-                if (err.response) {
-                    console.log("error response : ", err.response);
-                    this.setState(prev => ({
-                        ...prev,
-                        error: err.response.data.message,
-                    }));
-                } else if (err.request) {
-                    console.log("error request : ", err.request);
-                } else {
-                    console.log("error message : ", err.message);
-                }
-                console.log("error config : ", err.config);
-            });
+        this.props.join(this.state.input);
     }
 
     handleInput(event) {
@@ -61,11 +52,11 @@ class Join extends React.Component {
                     E-mail : <input type="email" name="email" onChange={this.handleInput}></input>
                     Password : <input type="password" name="password" onChange={this.handleInput}></input>
                 </form>
-                <p className="error">{this.state.error}</p>
+                <p className="error">{this.props.error.message}</p>
                 <button onClick={this.handleSubmit}>제출</button>
             </div>
         )
     }
 }
 
-export default Join;
+export default connect(mapStateToProps, mapDispatchToProps)(Join);

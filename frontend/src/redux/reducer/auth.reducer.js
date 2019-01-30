@@ -3,11 +3,11 @@ import axiosClient from '../../api/AxiosClient';
 
 const initState = {
 	auth: false,
-	userId: null
+	userId: null,
+	error: "",
 };
 
 export default (state = initState, action) => {
-	console.log('action type : ', action.type);
 	switch (action.type) {
 		case AT.AUTH:
 			if (action.payload) {
@@ -17,7 +17,7 @@ export default (state = initState, action) => {
 					userId: action.payload.userId
 				};
 			}
-			axiosClient.fetchAuth();
+			axiosClient.auth();
 			return state;
 
 		case AT.LOGIN:
@@ -29,7 +29,21 @@ export default (state = initState, action) => {
 		case AT.LOGOUT:
 			axiosClient.logOut();
 			return state;
-			
+
+		case AT.JOIN:
+			if (action.payload) {
+				axiosClient.join(action.payload);
+			}
+			return state;
+
+		case AT.API_ERROR:
+			if (action.payload) {
+				return {
+					...state,
+					error: action.payload,
+				}
+			}
+			return state;
 		default:
 			return state;
 	}

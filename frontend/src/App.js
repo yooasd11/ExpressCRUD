@@ -53,7 +53,7 @@ class App extends Component {
 						</nav>
 						<Switch>
 							<Redirect exact from="/" to="/list" />
-							{ this.props.auth ? <Redirect from="/login" to="/mypage" /> : <Redirect from="/mypage" to="/login" />}
+							{ this.props.auth ? <Redirect from="/login" to="/" /> : <Redirect from="/mypage" to="/" /> }
 							<Route path="/list" component={List} />
 							<Route path="/join" component={Join} />
 							<Route path="/login" component={Login} />

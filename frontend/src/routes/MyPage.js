@@ -4,7 +4,7 @@ import authActions from '../redux/actions/AuthAction';
 import './MyPage.scss';
 
 const mapDispatchToProps = {
-	logout: authActions.logout
+	logOut: authActions.logOut
 };
 
 class MyPage extends React.Component {
@@ -14,7 +14,7 @@ class MyPage extends React.Component {
     }
 
     handleLogout() {
-        this.props.logout();
+        this.props.logOut();
     }
 
     render() {
