@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch, Link, Redirect } from 'react-router-dom';
+import {
+	BrowserRouter as Router,
+	Route, Switch,
+	Link,
+	Redirect
+} from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import List from './routes/List';
 import Join from './routes/Join';
 import Login from './routes/Login';
 import MyPage from './routes/MyPage';
+import GuardedRoute from './common/GuardedRoute';
 import './App.scss';
 import authActions from './redux/actions/AuthAction';
 
@@ -53,11 +59,10 @@ class App extends Component {
 						</nav>
 						<Switch>
 							<Redirect exact from="/" to="/list" />
-							{ this.props.auth ? <Redirect from="/login" to="/" /> : <Redirect from="/mypage" to="/" /> }
 							<Route path="/list" component={List} />
 							<Route path="/join" component={Join} />
-							<Route path="/login" component={Login} />
-							<Route path="/mypage" render={() => <MyPage id={this.props.userId} />} />
+							<GuardedRoute path="/login" guard={!this.props.auth} fallback="/mypage" component={Login} />
+							<GuardedRoute path="/mypage" guard={this.props.auth} fallback="/login" render={() => <MyPage id={this.props.userId} />} />
 						</Switch>
 					</div>
 				</Router>
