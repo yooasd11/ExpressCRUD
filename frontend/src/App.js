@@ -41,19 +41,9 @@ class App extends Component {
 								<li>
 									<Link to="/list">List</Link>
 								</li>
-								{this.props.auth ? (
-									''
-								) : (
-										<li>
-											<Link to="/join">Join</Link>
-										</li>
-									)}
+								{this.props.auth ? '' : <li> <Link to="/join">Join</Link> </li>}
 								<li>
-									{this.props.auth ? (
-										<Link to="/mypage">My Page</Link>
-									) : (
-											<Link to="/login">Login</Link>
-										)}
+									{this.props.auth ? <Link to="/mypage">My Page</Link> : <Link to="/login">Login</Link>}
 								</li>
 							</ul>
 						</nav>
