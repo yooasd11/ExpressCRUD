@@ -36,16 +36,12 @@ class App extends Component {
 				<Router>
 					<div>
 						Auth : {String(this.props.auth)} , UserId : {this.props.userId}
-						<nav>
-							<ul className="links">
-								<li>
-									<Link to="/list">List</Link>
-								</li>
-								{this.props.auth ? '' : <li> <Link to="/join">Join</Link> </li>}
-								<li>
-									{this.props.auth ? <Link to="/mypage">My Page</Link> : <Link to="/login">Login</Link>}
-								</li>
-							</ul>
+						<nav className="links">
+							<Link to="/list">List</Link>
+							<Link to="/videos" style={{ display: this.props.auth ? 'block': 'none' }}>Videos</Link>
+							<Link to="/mypage" style={{ display: this.props.auth ? 'block': 'none' }}>My Page</Link>
+							<Link to="/login" style={{ display: this.props.auth ? 'none': 'block' }}>Login</Link>
+							<Link to="/join" style={{ display: this.props.auth ? 'none': 'block' }}>Join</Link>
 						</nav>
 						<Switch>
 							<Redirect exact from="/" to="/list" />

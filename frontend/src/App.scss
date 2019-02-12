@@ -1,12 +1,10 @@
 .app-wrapper {
     padding: 50px 100px;
-    nav {
-        margin-bottom: 20px;
-    }
-    
+
     .links {
+        margin-bottom: 20px;
         display: flex;
-        li ~ li {
+        * ~ * {
             margin-left: 10px;
         }
     }
